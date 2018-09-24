@@ -1,25 +1,15 @@
+import { createAction, handleActions } from 'redux-actions';
+
 // action type
 const BOARD_SAVE = 'SAVE';
 const BOARD_REMOVE = 'REMOVE';
-const BOARD_READ = 'ONE';
+const BOARD_READ = 'READ';
 const BOARD_LIST = 'LIST';
 
-export const board_save = (data) => ({ 
-								type: BOARD_SAVE,
-								data
-							});
-							
-export const board_remove = (id) => ({ 
-								type: BOARD_REMOVE,
-								id: id
-							});
-
-export const board_read = (id) => ({ 
-								type: BOARD_READ,
-								id: id
-							});
-							
-export const board_list = () => ({ type: BOARD_LIST });
+export const board_save = createAction(BOARD_SAVE);
+export const board_remove = createAction(BOARD_REMOVE, id => id);
+export const board_read = createAction(BOARD_READ);
+export const board_list = createAction(BOARD_LIST);
 
 let	maxNo = 3;
 
@@ -41,26 +31,26 @@ const initialState = {
 	selectedBoard: {}
 };
 
-export default function board_reducer(state = initialState, action) {
-	let boards = state.boards;
-	switch(action.type) {
-		case BOARD_SAVE:
-			let data = action.data;
-			if (data.id ===null || data.id==='' || data.id===undefined) {	// new : Insert
-				data.id = maxNo++;
-				return {boards: boards.concat({date: new Date(), ...data }), selectedBoard: {} };
-				 
-			} else {														// Update
-				return {boards: boards.map(row => data.id === row.id ? {...data }: row), selectedBoard: {} };
-			}		
-		case BOARD_REMOVE:
-			 return {boards: boards.filter(row => row.id !== action.id), selectedBoard: {} };
-		case BOARD_READ:
-			 return {
-				 boards: boards,
-				 selectedBoard: boards.find(row => row.id === action.id)
-			};
-		default:
-			return state;
+export default handleActions({
+	[BOARD_SAVE]: (state, { payload: data }) => {
+		let boards = state.boards;
+		if (data.id ===null || data.id==='' || data.id===undefined) {	// new : Insert
+			data.id = maxNo++;
+			return {boards: boards.concat({date: new Date(), ...data }), selectedBoard: {} };
+			 
+		} else {														// Update
+			return {boards: boards.map(row => data.id === row.id ? {...data }: row), selectedBoard: {} };
+		}	
+	},
+	[BOARD_REMOVE]: (state, { payload: id }) => {
+		let boards = state.boards;
+		return {boards: boards.filter(row => row.id !== id), selectedBoard: {} };
+	},
+	[BOARD_READ]: (state, { payload: id }) => {
+		let boards = state.boards;
+		return {
+			boards: boards,
+			selectedBoard: boards.find(row => row.id === id)
+		};
 	}
-}
+}, initialState);
