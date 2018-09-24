@@ -2,9 +2,9 @@
 
 This example is web boards focusing on data input / output for easy understanding of React and Redux.
 
-
-master: redux
-step2: createAction, handleActions, const
+### Branches ###
+- master: redux
+- step2: createAction, handleActions, const
 
 
 ### Install & Run ###
