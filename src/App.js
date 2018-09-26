@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import BoardForm from './App_BoardForm';
 import BoardItem from './App_BoardItem';
 
+import { board_list, board_remove } from './App_reducer';
+
 class App extends Component {
-	
 	render() {
 		const { boards} = this.props;
 
