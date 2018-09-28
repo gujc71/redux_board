@@ -10,6 +10,7 @@ This example is web boards focusing on data input / output for easy understandin
 - [react_board](https://github.com/gujc71/react_board): simple board(CRUD) examples for React
 - [redux_board](https://github.com/gujc71/redux_board): this
 - [react_firestore](https://github.com/gujc71/react_firestore): simple board(CRUD) examples for React(Redux) + Firestore
+- [firebaseExample](https://github.com/gujc71/firebaseExample): simple board(CRUD) examples for Node.js(express): + Firestore
 
 ### Install & Run ###
 - git clone https://github.com/gujc71/redux_board.git
