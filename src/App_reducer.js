@@ -21,9 +21,8 @@ export const board_read = (brdno) => ({
                             
 export const board_list = () => ({ type: BOARD_LIST });
 
-let    maxNo = 3;
-
 const initialState = {
+    maxNo: 3,
     boards: [
             {
                 brdno: 1,
@@ -41,23 +40,24 @@ const initialState = {
     selectedBoard: {}
 };
 
+
+	
 export default function board_reducer(state = initialState, action) {
     let boards = state.boards;
+    
     switch(action.type) {
         case BOARD_SAVE:
             let data = action.data;
+            let maxNo = state.maxNo;
             if (!data.brdno) {    // new : Insert
-                data.brdno = maxNo++;
-                return {boards: boards.concat({brddate: new Date(), ...data }), selectedBoard: {} };
-                 
-            } else {                                                        // Update
-                return {boards: boards.map(row => data.brdno === row.brdno ? {...data }: row), selectedBoard: {} };
-            }        
+                return {maxNo: maxNo+1, boards: boards.concat({...data, brdno: maxNo, brddate: new Date()}), selectedBoard: {} };
+            } 
+            return {...state, boards: boards.map(row => data.brdno === row.brdno ? {...data }: row), selectedBoard: {} };
         case BOARD_REMOVE:
-             return {boards: boards.filter(row => row.brdno !== action.brdno), selectedBoard: {} };
+             return {...state, boards: boards.filter(row => row.brdno !== action.brdno), selectedBoard: {}};
         case BOARD_READ:
              return {
-                 boards: boards,
+                 ...state,
                  selectedBoard: boards.find(row => row.brdno === action.brdno)
             };
         default:

@@ -22,7 +22,7 @@ class App extends Component {
                     </tr>
                     {
                         boards.map(row =>
-                            (<BoardItem key={row.id} row={row} />)
+                            (<BoardItem key={row.brdno} row={row} />)
                         )
                     }
                     </tbody>
