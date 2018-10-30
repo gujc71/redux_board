@@ -11,9 +11,8 @@ export const board_remove = createAction(BOARD_REMOVE, brdno => brdno);
 export const board_read = createAction(BOARD_READ);
 export const board_list = createAction(BOARD_LIST);
 
-let    maxNo = 3;
-
 const initialState = {
+    maxNo: 3,    
     boards: [
             {
                 brdno: 1,
@@ -34,23 +33,20 @@ const initialState = {
 export default handleActions({
     [BOARD_SAVE]: (state, { payload: data }) => {
         let boards = state.boards;
-        if (!data.brdno) {    // new : Insert
-            data.brdno = maxNo++;
-            return {boards: boards.concat({brddate: new Date(), ...data }), selectedBoard: {} };
-             
+        if (!data.brdno) {                                              // new : Insert
+            let maxNo = state.maxNo;
+            return {maxNo: maxNo+1, boards: boards.concat({...data, brdno:maxNo, brddate: new Date()}), selectedBoard: {} };
         } else {                                                        // Update
-            return {boards: boards.map(row => data.brdno === row.brdno ? {...data }: row), selectedBoard: {} };
+            return {...state, boards: boards.map(row => data.brdno === row.brdno ? {...data }: row), selectedBoard: {} };
         }    
     },
     [BOARD_REMOVE]: (state, { payload: brdno }) => {
         let boards = state.boards;
-        return {boards: boards.filter(row => row.brdno !== brdno), selectedBoard: {} };
+        return {...state, boards: boards.filter(row => row.brdno !== brdno), selectedBoard: {} };
     },
     [BOARD_READ]: (state, { payload: brdno }) => {
         let boards = state.boards;
-        return {
-            boards: boards,
-            selectedBoard: boards.find(row => row.brdno === brdno)
+        return {...state, selectedBoard: boards.find(row => row.brdno === brdno)
         };
     }
 }, initialState);

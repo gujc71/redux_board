@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { board_read, board_remove } from './App_reducer'
 
-const BoardRow = ({ row, board_read, board_remove}) => (
+const BoardItem = ({ row, board_read, board_remove}) => (
     <tr>
         <td>{row.brdno}</td>
         <td><a onClick={() => { board_read(row.brdno) } }>{row.brdtitle}</a></td>
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
   board_remove: brdno => dispatch(board_remove(brdno))
 })
 
-export default connect(null, mapDispatchToProps)(BoardRow)
+export default connect(null, mapDispatchToProps)(BoardItem)
