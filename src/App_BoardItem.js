@@ -10,7 +10,7 @@ class BoardItem extends Component {
     
     render() {
         const row= this.props.row
-		
+        
         return(
             <tr>
                 <td>{row.brdno}</td>

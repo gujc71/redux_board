@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { board_save } from './App_reducer'
 
 class BoardForm extends Component {
-	state = {};
-	initialSelectedBoard = {
+    state = {};
+    initialSelectedBoard = {
         brdno: "",
         brdtitle: "",
         brdwriter: "",
@@ -13,7 +13,7 @@ class BoardForm extends Component {
     };
 
     handleChange = (e) => {
-		this.setState ({[e.target.name]: e.target.value});
+        this.setState ({[e.target.name]: e.target.value});
     }
     
     handleSave = () => {
@@ -21,14 +21,14 @@ class BoardForm extends Component {
         this.setState (this.initialSelectedBoard);
     }
     
-	componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.setState (nextProps.selectedBoard);
-	}
-	
+    }
+    
     render() {
         return (
             <div>
-				<input placeholder="title" name="brdtitle" value={this.state.brdtitle} onChange={this.handleChange} />
+                <input placeholder="title" name="brdtitle" value={this.state.brdtitle} onChange={this.handleChange} />
                 <input placeholder="name" name="brdwriter" value={this.state.brdwriter} onChange={this.handleChange} />
                 <button onClick={this.handleSave}>Save</button>
             </div>

@@ -41,7 +41,7 @@ const initialState = {
 };
 
 
-	
+    
 export default function board_reducer(state = initialState, action) {
     let boards = state.boards;
     
